@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>City Route Planner PRD</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 36px;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-size: 18px;
+      margin-top: 22px;
+      margin-bottom: 8px;
+      color: #111827;
+    }
+    p, li {
+      font-size: 12.5px;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    .meta {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 18px;
+    }
+    .section {
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>City Route Planner</h1>
+  <div class="meta">Product Requirements Document (PRD) · Version 1.0</div>
+
+  <div class="section">
+    <h2>1. Overview</h2>
+    <p>The City Route Planner is a web application for finding the shortest route between major Indian cities. It combines graph-based route calculation with live map visualization and supports multiple travel modes.</p>
+  </div>
+
+  <div class="section">
+    <h2>2. Problem Statement</h2>
+    <p>Users often need quick route information between cities for travel, operations planning, and trip estimation. A simple and focused route planner helps them understand the best path without needing complex enterprise tools.</p>
+  </div>
+
+  <div class="section">
+    <h2>3. Product Goal</h2>
+    <p>To provide a simple, fast, and visually clear route-planning experience for a defined set of cities using a lightweight weighted graph and map-based interface.</p>
+  </div>
+
+  <div class="section">
+    <h2>4. Target Users</h2>
+    <p>Travelers, logistics planners, demo users, and general users who need route distance and path estimation between cities.</p>
+  </div>
+
+  <div class="section">
+    <h2>5. Core Use Cases</h2>
+    <ul>
+      <li>Select source and destination cities.</li>
+      <li>Choose travel mode such as driving, walking, train, or flight.</li>
+      <li>View the shortest path and total distance.</li>
+      <li>Review route alternatives for driving.</li>
+      <li>See the route highlighted on an interactive map.</li>
+      <li>Receive clear feedback when the route is unavailable.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>6. Functional Requirements</h2>
+    <ul>
+      <li>The app must load a list of available cities from the backend.</li>
+      <li>The backend must compute the shortest path between two cities using a weighted graph.</li>
+      <li>The UI must allow city and travel-mode selection.</li>
+      <li>The app must display a route path like Delhi → Jaipur → Ahmedabad.</li>
+      <li>The selected route must be visible on a map with markers and polylines.</li>
+      <li>When no valid route exists, the app must show a clear no-route message.</li>
+      <li>When external APIs are unavailable, the app must show a graceful service error.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>7. Non-Functional Requirements</h2>
+    <ul>
+      <li>Fast response for small in-memory city networks.</li>
+      <li>Responsive and intuitive interface.</li>
+      <li>Graceful fallback when external map services fail.</li>
+      <li>Maintainable separation between backend graph logic and frontend presentation.</li>
+      <li>Accessible form controls and readable route feedback.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>8. User Stories</h2>
+    <ul>
+      <li>As a traveler, I want to choose two cities and see the shortest route so I can estimate travel distance.</li>
+      <li>As a user, I want to compare driving alternatives so I can pick the most suitable route.</li>
+      <li>As a user, I want to view routes on a map so I can understand geography more clearly.</li>
+      <li>As a user, I want clear error messages so I know when a route is impossible or a service is unavailable.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>9. Product Scope</h2>
+    <p><strong>In Scope:</strong> curated city graph, shortest-path search, map visualization, route alternatives, and basic mode handling.</p>
+    <p><strong>Out of Scope for MVP:</strong> real-time traffic, exact railway schedules, flight scheduling, user accounts, bookmarks, and large-scale global road data.</p>
+  </div>
+
+  <div class="section">
+    <h2>10. Success Metrics</h2>
+    <ul>
+      <li>Users can successfully find a valid route between any two cities in the graph.</li>
+      <li>Route results render correctly on the map without manual refresh.</li>
+      <li>The user experience remains intuitive and easy to follow.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>11. Acceptance Criteria</h2>
+    <ul>
+      <li>Given a valid source and destination, the app displays the route and total distance.</li>
+      <li>Given unreachable cities, the app displays a no-route response.</li>
+      <li>Given a valid route, the map centers and zooms to fit the active route.</li>
+      <li>Given invalid input, the backend returns a clear 400-style message.</li>
+      <li>For driving and walking modes, route geometry is rendered as a polyline on the map.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>12. Technical Architecture</h2>
+    <p><strong>Frontend:</strong> React app with Leaflet and react-leaflet for map display.</p>
+    <p><strong>Backend:</strong> Node.js and Express for API routes.</p>
+    <p><strong>Routing engine:</strong> Weighted graph with shortest-path computation.</p>
+    <p><strong>External services:</strong> OSRM for driving routes and Valhalla for walking route generation.</p>
+  </div>
+
+  <div class="section">
+    <h2>13. Risks and Constraints</h2>
+    <ul>
+      <li>External route APIs may be unavailable or rate-limited.</li>
+      <li>Train and flight modes are informational rather than schedule-accurate.</li>
+      <li>The route graph is a curated demo network, not production-grade road infrastructure data.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>14. Proposed Next Enhancements</h2>
+    <ul>
+      <li>Add more cities and richer graph data.</li>
+      <li>Add ETA and travel-time estimates.</li>
+      <li>Add route history or saved trips.</li>
+      <li>Add real train and flight APIs.</li>
+      <li>Add traffic-aware route optimization and geo-accurate pathing.</li>
+    </ul>
+  </div>
+</body>
+</html>
